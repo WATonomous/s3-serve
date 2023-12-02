@@ -28,20 +28,26 @@ RUN wget --quiet https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-
 FROM amazonlinux:2023
 COPY --from=builder /mount-s3.rpm /mount-s3.rpm
 
+RUN dnf upgrade -y \
+    && dnf install -y \
+        # Required for extracting the node tarball
+        tar \
+        xz \
+        # Required for `mount`
+        util-linux \
+        # Other required packages
+        python3-pip \
+    && dnf clean all
+
 RUN dnf upgrade -y && \
     dnf install -y ./mount-s3.rpm && \
     dnf clean all && \
     rm mount-s3.rpm
 
-RUN dnf upgrade -y \
-    && dnf install -y python3-pip
-
 RUN pip install supervisor
 
 COPY --from=builder /node.tar.xz /node.tar.xz
-RUN dnf upgrade -y \
-    && dnf install -y tar xz \
-    && tar -xf /node.tar.xz -C /usr/local --strip-components=1 \
+RUN tar -xf /node.tar.xz -C /usr/local --strip-components=1 \
     && rm /node.tar.xz
 
 RUN npm install -g serve
