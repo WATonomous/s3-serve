@@ -20,7 +20,7 @@ docker run --rm --cap-add SYS_ADMIN --device /dev/fuse --name s3-serve \
     -e S3_ENDPOINT_URL \
     -e S3_BUCKET \
     -p 3000:3000 \
-    ghcr.io/watonomous/s3-serve
+    ghcr.io/watonomous/s3-serve:main
 ```
 
 ### Use path-style addressing
@@ -38,7 +38,7 @@ docker run --rm --cap-add SYS_ADMIN --device /dev/fuse --name s3-serve \
     -e S3_BUCKET \
     -e MOUNTPOINT_S3_ADDITIONAL_ARGS \
     -p 3000:3000 \
-    ghcr.io/watonomous/s3-serve
+    ghcr.io/watonomous/s3-serve:main
 ```
 
 ### Reduce logging
@@ -58,7 +58,7 @@ docker run --rm --cap-add SYS_ADMIN --device /dev/fuse --name s3-serve \
     -e SERVE_ADDITIONAL_ARGS \
     -e MOUNTPOINT_LOG \
     -p 3000:3000 \
-    ghcr.io/watonomous/s3-serve
+    ghcr.io/watonomous/s3-serve:main
 ```
 
 [^logging]: [`serve` logging documentation](https://github.com/vercel/serve/blob/1ea55b/source/utilities/cli.ts#L47), `mountpoint-s3` logging documentation [1](https://github.com/awslabs/mountpoint-s3/blob/27bac02/doc/LOGGING.md) [2](https://github.com/awslabs/mountpoint-s3/blob/27bac02/mountpoint-s3/src/main.rs#L289-L304)
@@ -75,6 +75,6 @@ docker run --rm --cap-add SYS_ADMIN --device /dev/fuse --name s3-serve \
     -e S3_BUCKET \
     -v /path/to/serve.json:/etc/serve.json:ro \
     -p 3000:3000 \
-    ghcr.io/watonomous/s3-serve
+    ghcr.io/watonomous/s3-serve:main
 ```
 
